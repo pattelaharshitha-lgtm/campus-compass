@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Campus Compass — Amrita Vishwa Vidyapeetham, Amaravati</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#C0392B;--red-dark:#922B21;--red-light:#F9EBEA;
+  --gold:#D4AC0D;--gold-light:#FEF9E7;
+  --dark:#0D0D0D;--dark2:#1A1A1A;--dark3:#2C2C2C;
+  --gray:#6B6B6B;--gray-light:#F2F2F0;--gray-mid:#E0DFDB;
+  --white:#FAFAF8;
+  --font-display:'Syne',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:70px}
+body{background:var(--white);color:var(--dark);font-family:var(--font-body);font-size:16px;line-height:1.7;overflow-x:hidden}
+
+/* SCROLL PROGRESS */
+#scroll-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--red),var(--gold));z-index:200;transition:width 0.1s linear}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,250,248,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--gray-mid);padding:0 5%}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:var(--font-display);font-weight:800;font-size:1.1rem;color:var(--dark);text-decoration:none;display:flex;align-items:center;gap:8px}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-size:0.78rem;font-weight:500;color:var(--gray);text-decoration:none;padding:6px 12px;border-radius:20px;transition:all 0.2s;letter-spacing:0.03em;text-transform:uppercase}
+.nav-links a:hover{color:var(--dark);background:var(--gray-light)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:2px;background:var(--dark);border-radius:2px;transition:all 0.3s}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:var(--white);border-bottom:1px solid var(--gray-mid);z-index:99;padding:16px 5%}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:10px 0;font-size:0.9rem;color:var(--dark);text-decoration:none;border-bottom:1px solid var(--gray-mid)}
+
+/* HERO */
+#home{min-height:100vh;display:flex;align-items:center;padding:80px 5% 60px;background:var(--dark);position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,#2a0a08 0%,var(--dark) 70%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:40px 40px}
+.hero-content{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(192,57,43,0.2);border:1px solid rgba(192,57,43,0.4);color:#E8A09A;padding:6px 14px;border-radius:20px;font-size:0.75rem;font-family:var(--font-mono);letter-spacing:0.05em;margin-bottom:24px}
+.hero-badge::before{content:'';width:6px;height:6px;background:#E8A09A;border-radius:50%;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+h1.hero-title{font-family:var(--font-display);font-weight:800;font-size:clamp(2.4rem,4vw,3.8rem);line-height:1.05;color:#FAFAF8;margin-bottom:20px}
+h1.hero-title em{color:var(--red);font-style:normal}
+.hero-sub{font-size:1rem;color:rgba(250,250,248,0.6);line-height:1.7;margin-bottom:32px;font-weight:300}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:var(--red);color:#fff;padding:12px 28px;border-radius:4px;text-decoration:none;font-weight:500;font-size:0.9rem;transition:all 0.2s;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--red-dark);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:rgba(250,250,248,0.7);padding:12px 28px;border-radius:4px;text-decoration:none;font-weight:500;font-size:0.9rem;transition:all 0.2s;border:1px solid rgba(250,250,248,0.2)}
+.btn-ghost:hover{color:#fafaf8;border-color:rgba(250,250,248,0.5)}
+.hero-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;backdrop-filter:blur(10px)}
+.hero-card h3{font-family:var(--font-display);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(250,250,248,0.4);margin-bottom:16px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat-item{text-align:center;padding:16px;background:rgba(255,255,255,0.04);border-radius:8px;border:1px solid rgba(255,255,255,0.06)}
+.stat-num{font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:#FAFAF8}
+.stat-num span{color:var(--red)}
+.stat-label{font-size:0.72rem;color:rgba(250,250,248,0.5);margin-top:2px;text-transform:uppercase;letter-spacing:0.05em}
+.hero-divider{height:1px;background:rgba(255,255,255,0.08);margin:16px 0}
+.branch-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:rgba(192,57,43,0.15);border:1px solid rgba(192,57,43,0.3);color:#E8A09A;padding:4px 10px;border-radius:4px;font-size:0.72rem;font-family:var(--font-mono)}
+
+/* SECTIONS */
+section{padding:80px 5%}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-family:var(--font-mono);font-size:0.72rem;color:var(--red);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-label::before{content:'';width:20px;height:1px;background:var(--red)}
+h2.section-title{font-family:var(--font-display);font-weight:800;font-size:clamp(1.8rem,3vw,2.8rem);line-height:1.1;margin-bottom:40px;color:var(--dark)}
+h2.section-title em{color:var(--red);font-style:normal}
+
+/* ACADEMIC */
+#academics{background:var(--white)}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{background:#fff;border:1px solid var(--gray-mid);border-radius:12px;padding:24px;transition:all 0.25s}
+.card:hover{border-color:var(--red);transform:translateY(-3px);box-shadow:0 8px 30px rgba(192,57,43,0.08)}
+.card-icon{width:40px;height:40px;background:var(--red-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:16px}
+.card h3{font-family:var(--font-display);font-weight:700;font-size:1rem;margin-bottom:8px;color:var(--dark)}
+.card p,.card ul{font-size:0.88rem;color:var(--gray);line-height:1.7}
+.card ul{padding-left:16px}
+.card ul li{margin-bottom:4px}
+
+/* EXAM BREAKDOWN */
+.exam-box{background:var(--dark);border-radius:16px;padding:32px;color:#fafaf8;margin-top:40px}
+.exam-box h3{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:24px;color:#fafaf8}
+.exam-bars{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.bar-item{background:rgba(255,255,255,0.05);border-radius:10px;padding:18px}
+.bar-label{font-size:0.8rem;color:rgba(250,250,248,0.6);margin-bottom:10px;font-family:var(--font-mono)}
+.bar-track{height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;margin-bottom:8px}
+.bar-fill{height:100%;background:var(--red);border-radius:4px;transition:width 1s ease}
+.bar-num{font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:#fafaf8}
+.bar-sub{font-size:0.72rem;color:rgba(250,250,248,0.4);margin-top:2px}
+
+/* CGPA TIPS */
+.tips-list{margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.tip-item{display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--gray-light);border-radius:10px}
+.tip-num{font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--red);opacity:0.3;line-height:1;min-width:32px}
+.tip-text{font-size:0.87rem;color:var(--dark);line-height:1.6}
+.tip-text strong{color:var(--dark);font-weight:500}
+
+/* CLUBS */
+#clubs{background:var(--gray-light)}
+.clubs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.club-card{background:#fff;border-radius:12px;padding:24px;border:1px solid var(--gray-mid);position:relative;overflow:hidden;transition:all 0.25s}
+.club-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--red)}
+.club-card.tech::before{background:#3498DB}
+.club-card.cultural::before{background:#8E44AD}
+.club-card.sports::before{background:#27AE60}
+.club-card.creative::before{background:#E67E22}
+.club-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.08)}
+.club-type{font-family:var(--font-mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);margin-bottom:8px}
+.club-card h3{font-family:var(--font-display);font-weight:700;font-size:1.05rem;margin-bottom:8px}
+.club-card p{font-size:0.85rem;color:var(--gray);line-height:1.6}
+.join-steps{margin-top:40px;background:#fff;border-radius:16px;padding:32px;border:1px solid var(--gray-mid)}
+.join-steps h3{font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:24px}
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:20px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--gray-light)}
+.step:last-child{border-bottom:none}
+.step-num{background:var(--red);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:0.8rem;flex-shrink:0;margin-top:2px}
+.step-content h4{font-weight:500;font-size:0.9rem;margin-bottom:4px}
+.step-content p{font-size:0.83rem;color:var(--gray)}
+
+/* HOSTEL */
+#hostel{background:var(--white)}
+.routine-timeline{margin-top:0;display:flex;flex-direction:column;gap:0;border-left:2px solid var(--gray-mid);padding-left:24px;margin-left:12px}
+.timeline-item{position:relative;padding-bottom:20px}
+.timeline-item::before{content:'';position:absolute;left:-31px;top:4px;width:10px;height:10px;background:#fff;border:2px solid var(--red);border-radius:50%}
+.time-label{font-family:var(--font-mono);font-size:0.72rem;color:var(--red);margin-bottom:2px}
+.timeline-item p{font-size:0.88rem;color:var(--dark)}
+.hostel-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.facilities-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.fac-item{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--dark);padding:10px;background:var(--gray-light);border-radius:8px}
+.fac-item::before{content:'✓';color:var(--red);font-weight:700;font-size:0.8rem}
+
+/* SURVIVAL KIT */
+#survival{background:var(--dark);color:#fafaf8}
+#survival h2.section-title{color:#fafaf8}
+.dos-donts{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px}
+.do-box,.dont-box{border-radius:12px;padding:24px}
+.do-box{background:rgba(39,174,96,0.1);border:1px solid rgba(39,174,96,0.25)}
+.dont-box{background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.25)}
+.do-box h3{color:#58D68D;font-family:var(--font-display);font-size:0.9rem;font-weight:700;margin-bottom:16px;letter-spacing:0.05em}
+.dont-box h3{color:#E8A09A;font-family:var(--font-display);font-size:0.9rem;font-weight:700;margin-bottom:16px;letter-spacing:0.05em}
+.dd-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.dd-list li{font-size:0.85rem;color:rgba(250,250,248,0.75);line-height:1.5;padding-left:20px;position:relative}
+.do-box .dd-list li::before{content:'→';position:absolute;left:0;color:#58D68D}
+.dont-box .dd-list li::before{content:'✕';position:absolute;left:0;color:#E8A09A}
+
+.mistakes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:40px}
+.mistake-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:18px}
+.mistake-card h4{font-family:var(--font-display);font-size:0.85rem;font-weight:700;color:#E8A09A;margin-bottom:8px}
+.mistake-card p{font-size:0.82rem;color:rgba(250,250,248,0.6);line-height:1.6}
+
+.time-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.time-block{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:18px;text-align:center}
+.time-block .time{font-family:var(--font-mono);font-size:0.8rem;color:var(--red);margin-bottom:6px}
+.time-block p{font-size:0.83rem;color:rgba(250,250,248,0.7)}
+
+/* MIS PREP */
+.mis-section{margin-top:40px;background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.25);border-radius:16px;padding:28px}
+.mis-section h3{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:#E8A09A;margin-bottom:20px}
+.mis-plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.mis-week{background:rgba(255,255,255,0.05);border-radius:8px;padding:14px}
+.mis-week h4{font-family:var(--font-mono);font-size:0.72rem;color:var(--red);margin-bottom:8px;text-transform:uppercase}
+.mis-week ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.mis-week ul li{font-size:0.8rem;color:rgba(250,250,248,0.7);padding-left:12px;position:relative}
+.mis-week ul li::before{content:'·';position:absolute;left:0;color:var(--red)}
+
+/* TOOLS */
+#tools{background:var(--white)}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.tool-card{background:#fff;border:1px solid var(--gray-mid);border-radius:12px;padding:22px;transition:all 0.25s}
+.tool-card:hover{border-color:var(--red);box-shadow:0 6px 24px rgba(192,57,43,0.07)}
+.tool-icon{font-size:1.6rem;margin-bottom:12px}
+.tool-card h3{font-family:var(--font-display);font-weight:700;font-size:0.95rem;margin-bottom:6px}
+.tool-card p{font-size:0.83rem;color:var(--gray);line-height:1.6}
+.tool-link{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:0.78rem;color:var(--red);text-decoration:none;font-family:var(--font-mono)}
+.tool-link:hover{text-decoration:underline}
+
+/* REVIEWS */
+#reviews{background:var(--gray-light)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.review-card{background:#fff;border-radius:12px;padding:24px;border:1px solid var(--gray-mid)}
+.review-stars{color:var(--gold);font-size:0.9rem;margin-bottom:12px}
+.review-text{font-size:0.88rem;color:var(--dark);line-height:1.7;font-style:italic;margin-bottom:16px}
+.review-author{display:flex;align-items:center;gap:10px}
+.review-avatar{width:36px;height:36px;background:var(--red-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:0.8rem;color:var(--red)}
+.review-name{font-size:0.85rem;font-weight:500;color:var(--dark)}
+.review-batch{font-size:0.75rem;color:var(--gray)}
+
+/* FOOTER */
+footer{background:var(--dark2);padding:40px 5%;color:rgba(250,250,248,0.5)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.footer-logo{font-family:var(--font-display);font-weight:800;font-size:1rem;color:#fafaf8}
+.footer-logo span{color:var(--red)}
+.footer-text{font-size:0.8rem;text-align:center}
+.footer-links{display:flex;gap:16px}
+.footer-links a{font-size:0.78rem;color:rgba(250,250,248,0.4);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--red)}
+
+/* ANIMATED COUNTERS */
+.stat-num[data-target]{transition:none}
+
+/* FAQ */
+#faq{background:var(--gray-light)}
+.faq-list{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.faq-item{background:#fff;border:1px solid var(--gray-mid);border-radius:12px;overflow:hidden;transition:border-color 0.2s}
+.faq-item.open{border-color:var(--red)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:0.95rem;color:var(--dark);gap:16px}
+.faq-q:hover{background:var(--gray-light)}
+.faq-icon{font-size:1.2rem;color:var(--red);flex-shrink:0;transition:transform 0.3s}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s}
+.faq-a p{padding:0 22px 18px;font-size:0.88rem;color:var(--gray);line-height:1.7}
+.faq-item.open .faq-a{max-height:300px}
+
+/* CAMPUS MAP */
+#campusmap{background:var(--white)}
+.map-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:32px}
+.map-spot{background:var(--gray-light);border-radius:12px;padding:20px;border:1px solid var(--gray-mid);transition:all 0.2s;cursor:default}
+.map-spot:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:0 6px 20px rgba(192,57,43,0.07)}
+.map-spot-icon{font-size:1.8rem;margin-bottom:10px}
+.map-spot h4{font-family:var(--font-display);font-weight:700;font-size:0.9rem;margin-bottom:6px;color:var(--dark)}
+.map-spot p{font-size:0.8rem;color:var(--gray);line-height:1.5}
+.map-callout{margin-top:24px;padding:18px 22px;background:var(--gold-light);border:1px solid rgba(212,172,13,0.3);border-radius:12px;font-size:0.87rem;color:var(--dark)}
+
+/* DAY-1 CHECKLIST */
+#checklist-section{background:var(--dark);color:#fafaf8}
+#checklist-section h2.section-title{color:#fafaf8}
+.checklist-download-wrap{margin-top:32px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:32px}
+.checklist-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:600px){.checklist-cols{grid-template-columns:1fr}}
+.checklist-col h4{font-family:var(--font-display);font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.08em}
+.cl-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:0.84rem;color:rgba(250,250,248,0.8)}
+.cl-item:last-child{border-bottom:none}
+.cl-item::before{content:'☐';color:var(--red);font-size:1rem;flex-shrink:0;margin-top:-1px}
+.btn-download{display:inline-flex;align-items:center;gap:8px;margin-top:28px;background:var(--gold);color:var(--dark);padding:12px 28px;border-radius:6px;font-weight:600;font-size:0.9rem;cursor:pointer;border:none;font-family:var(--font-body);transition:all 0.2s}
+.btn-download:hover{background:#b8960b;transform:translateY(-1px)}
+
+/* CGPA CALCULATOR */
+#cgpa-calc{background:var(--white)}
+.calc-wrap{background:var(--dark);border-radius:20px;padding:36px;color:#fafaf8;margin-top:8px}
+.calc-wrap h3{font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:24px;color:#fafaf8}
+.subjects-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+.subjects-table th{font-family:var(--font-mono);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:rgba(250,250,248,0.4);padding:8px 12px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.08)}
+.subjects-table td{padding:8px 6px}
+.subjects-table input,.subjects-table select{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fafaf8;padding:8px 10px;border-radius:6px;font-size:0.85rem;width:100%;font-family:var(--font-body)}
+.subjects-table input::placeholder{color:rgba(250,250,248,0.3)}
+.subjects-table input:focus,.subjects-table select:focus{outline:none;border-color:var(--red)}
+.subjects-table select option{background:#1a1a1a}
+.calc-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn-calc{background:var(--red);color:#fff;padding:10px 24px;border:none;border-radius:6px;font-size:0.88rem;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:all 0.2s}
+.btn-calc:hover{background:var(--red-dark)}
+.btn-add-row{background:rgba(255,255,255,0.08);color:rgba(250,250,248,0.7);padding:10px 20px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;font-size:0.85rem;cursor:pointer;font-family:var(--font-body);transition:all 0.2s}
+.btn-add-row:hover{background:rgba(255,255,255,0.14)}
+.cgpa-result{margin-top:24px;padding:20px 24px;background:rgba(192,57,43,0.15);border:1px solid rgba(192,57,43,0.3);border-radius:12px;display:none}
+.cgpa-result.show{display:block}
+.cgpa-result-num{font-family:var(--font-display);font-size:2.4rem;font-weight:800;color:#fafaf8}
+.cgpa-result-label{font-size:0.8rem;color:rgba(250,250,248,0.5);margin-top:4px}
+.cgpa-verdict{margin-top:8px;font-size:0.85rem;color:var(--gold)}
+
+/* ATTENDANCE DANGER */
+.attend-wrap{margin-top:32px;background:var(--gray-light);border-radius:16px;padding:28px;border:1px solid var(--gray-mid)}
+.attend-wrap h3{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:20px;color:var(--dark)}
+.attend-inputs{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin-bottom:20px}
+.attend-field{display:flex;flex-direction:column;gap:6px}
+.attend-field label{font-size:0.78rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.07em;color:var(--gray)}
+.attend-field input{background:#fff;border:1px solid var(--gray-mid);color:var(--dark);padding:10px 14px;border-radius:8px;font-size:0.9rem;width:140px;font-family:var(--font-body)}
+.attend-field input:focus{outline:none;border-color:var(--red)}
+.attend-result{padding:16px 20px;border-radius:10px;font-size:0.88rem;display:none}
+.attend-result.show{display:block}
+.attend-safe{background:rgba(39,174,96,0.1);border:1px solid rgba(39,174,96,0.3);color:#1e8449}
+.attend-danger{background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.3);color:var(--red-dark)}
+.attend-critical{background:rgba(192,57,43,0.2);border:1px solid rgba(192,57,43,0.5);color:#7b241c}
+
+/* EXTRA REVIEWS */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+/* BACK TO TOP */
+.back-top{position:fixed;bottom:24px;right:24px;background:var(--red);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.1rem;box-shadow:0 4px 16px rgba(192,57,43,0.3);transition:all 0.2s;z-index:50;opacity:0;pointer-events:none}
+.back-top.show{opacity:1;pointer-events:all}
+.back-top:hover{background:var(--red-dark);transform:translateY(-2px)}
+
+@media(max-width:768px){
+  .hero-content{grid-template-columns:1fr;gap:40px}
+  .hero-card{display:none}
+  .hostel-grid{grid-template-columns:1fr}
+  .dos-donts{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .facilities-list{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="scroll-progress"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">🧭 Campus<span>Compass</span></a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#academics">Academics</a></li>
+      <li><a href="#clubs">Clubs</a></li>
+      <li><a href="#hostel">Campus Life</a></li>
+      <li><a href="#survival">Survival Kit</a></li>
+      <li><a href="#cgpa-calc">Calculator</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#campusmap">Map</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="toggleMenu()">Home</a>
+  <a href="#academics" onclick="toggleMenu()">Academics</a>
+  <a href="#clubs" onclick="toggleMenu()">Clubs</a>
+  <a href="#hostel" onclick="toggleMenu()">Campus Life</a>
+  <a href="#survival" onclick="toggleMenu()">Survival Kit</a>
+  <a href="#tools" onclick="toggleMenu()">Tools & Resources</a>
+  <a href="#cgpa-calc" onclick="toggleMenu()">CGPA Calculator</a>
+  <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="#campusmap" onclick="toggleMenu()">Campus Map</a>
+  <a href="#checklist-section" onclick="toggleMenu()">Day 1 Checklist</a>
+  <a href="#reviews" onclick="toggleMenu()">Reviews</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">Fresher Guide · Batch of 2026</div>
+      <h1 class="hero-title">Your first year at <em>Amrita</em> Amaravati, decoded.</h1>
+      <p class="hero-sub">Everything a fresher needs to know — academics, hostel life, clubs, survival tips and more. Made by a senior, for you.</p>
+      <div class="hero-cta">
+        <a href="#academics" class="btn-primary">Explore the Guide →</a>
+        <a href="#survival" class="btn-ghost">Survival Kit</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>Campus at a Glance</h3>
+      <div class="stat-grid">
+        <div class="stat-item"><div class="stat-num" data-target="400" data-suffix="+"><span class="count-val">0</span><span>+</span></div><div class="stat-label">Acres Campus</div></div>
+        <div class="stat-item"><div class="stat-num" data-target="75" data-suffix="%"><span class="count-val">0</span><span>%</span></div><div class="stat-label">Min Attendance</div></div>
+        <div class="stat-item"><div class="stat-num">A<span>++</span></div><div class="stat-label">NAAC Grade</div></div>
+        <div class="stat-item"><div class="stat-num" data-target="10" data-suffix="+"><span class="count-val">0</span><span>+</span></div><div class="stat-label">Active Clubs</div></div>
+      </div>
+      <div class="hero-divider"></div>
+      <h3 style="margin-bottom:10px">Branches Offered</h3>
+      <div class="branch-tags">
+        <span class="tag">CSE</span>
+        <span class="tag">CSE-AI</span>
+        <span class="tag">AI & DS</span>
+        <span class="tag">CCE</span>
+        <span class="tag">MBA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMICS -->
+<section id="academics">
+  <div class="section-inner">
+    <div class="section-label">Section 02</div>
+    <h2 class="section-title">Academic <em>Life</em></h2>
+    <div class="cards-grid fade-up">
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <h3>Branches Offered</h3>
+        <ul>
+          <li>B.Tech — Computer Science Engineering (CSE)</li>
+          <li>B.Tech — CSE with Artificial Intelligence</li>
+          <li>B.Tech — Artificial Intelligence & Data Science</li>
+          <li>B.Tech — Computer & Communication Engineering (CCE)</li>
+          <li>MBA — Business Administration</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏛️</div>
+        <h3>Class & Lab Structure</h3>
+        <p>Theory classes run Monday–Friday. Labs are scheduled on fixed days with practical sessions. Laptops are allowed in class — but phones must be on silent and kept away during lectures. Labs are open from 7 AM to 10:30 PM daily.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>Attendance Rules</h3>
+        <p>Minimum <strong>75% attendance</strong> is mandatory per subject. Fall below this and you'll be detained from that subject's exam. Track attendance daily on <strong>aums.amrita.edu</strong> — don't let it sneak up on you.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎓</div>
+        <h3>CGPA Tips</h3>
+        <ul>
+          <li>Never miss lab record submissions</li>
+          <li>Assignments are easy marks — do them seriously</li>
+          <li>Start MIS prep 2 weeks before, not 2 days</li>
+          <li>Ask doubts early — faculty are approachable</li>
+          <li>Form study groups for tough subjects</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exam-box fade-up">
+      <h3>📊 Exam Pattern Breakdown</h3>
+      <div class="exam-bars">
+        <div class="bar-item">
+          <div class="bar-label">MID EXAM (MIS)</div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
+          <div class="bar-num">30<span style="font-size:0.9rem;color:rgba(250,250,248,0.4)"> marks</span></div>
+          <div class="bar-sub">Reduced from 50 to 30 (weightage)</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">SEM EXAM (End Sem)</div>
+          <div class="bar-track"><div class="bar-fill" style="width:40%"></div></div>
+          <div class="bar-num">20<span style="font-size:0.9rem;color:rgba(250,250,248,0.4)"> marks</span></div>
+          <div class="bar-sub">Reduced from 50 to 20 (weightage)</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">LAB EXAM</div>
+          <div class="bar-track"><div class="bar-fill" style="width:40%"></div></div>
+          <div class="bar-num">20<span style="font-size:0.9rem;color:rgba(250,250,248,0.4)"> marks</span></div>
+          <div class="bar-sub">Practical performance</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">ASSIGNMENTS & PROJECTS</div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
+          <div class="bar-num">30<span style="font-size:0.9rem;color:rgba(250,250,248,0.4)"> marks</span></div>
+          <div class="bar-sub">Continuous internal assessment</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tips-list fade-up">
+      <div class="tip-item"><div class="tip-num">01</div><div class="tip-text"><strong>Attend from Day 1.</strong> Late joiners always struggle to recover attendance.</div></div>
+      <div class="tip-item"><div class="tip-num">02</div><div class="tip-text"><strong>AUMS is your lifeline.</strong> Check it daily for attendance, timetable and marks.</div></div>
+      <div class="tip-item"><div class="tip-num">03</div><div class="tip-text"><strong>Labs = easy CGPA.</strong> Show up prepared, submit records on time.</div></div>
+      <div class="tip-item"><div class="tip-num">04</div><div class="tip-text"><strong>Never bunk assignments.</strong> They're free marks — treat them like gold.</div></div>
+      <div class="tip-item"><div class="tip-num">05</div><div class="tip-text"><strong>Talk to your seniors.</strong> They have previous year question papers and notes.</div></div>
+      <div class="tip-item"><div class="tip-num">06</div><div class="tip-text"><strong>Form study groups.</strong> Three people studying together beats studying alone every time.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLUBS -->
+<section id="clubs">
+  <div class="section-inner">
+    <div class="section-label">Section 03</div>
+    <h2 class="section-title">Clubs & <em>Extracurriculars</em></h2>
+    <p style="margin-bottom:32px;color:var(--gray);max-width:600px">Amrita Amaravati has a thriving club culture. Joining a club in your first semester is one of the best decisions you can make — it builds your network, resume, and sanity.</p>
+    <div class="clubs-grid fade-up">
+      <div class="club-card tech">
+        <div class="club-type">Technical</div>
+        <h3>RELU</h3>
+        <p>The AI/ML club of the campus. Deep dives into machine learning, neural networks, and data science projects. Perfect for CSE-AI and AI&DS students.</p>
+      </div>
+      <div class="club-card tech">
+        <div class="club-type">Technical · Event Organizer</div>
+        <h3>Chakravyuha</h3>
+        <p>The flagship technical fest club. Organizes campus-wide competitions including this very event! Great exposure to event management and leadership.</p>
+      </div>
+      <div class="club-card tech">
+        <div class="club-type">Technical</div>
+        <h3>Robotics Club</h3>
+        <p>Build, program and compete with robots. From line followers to autonomous bots — hands-on engineering that textbooks can't teach.</p>
+      </div>
+      <div class="club-card cultural">
+        <div class="club-type">Cultural · Dance</div>
+        <h3>Nrityasparsha</h3>
+        <p>The premier dance club of Amrita Amaravati. Classical and contemporary dance forms, intra and inter-college competitions, and cultural events.</p>
+      </div>
+      <div class="club-card creative">
+        <div class="club-type">Creative · Fine Arts</div>
+        <h3>Advika</h3>
+        <p>For the artists on campus. Painting, sketching, and visual arts workshops. Showcases work at campus fests and helps you express your creative side.</p>
+      </div>
+      <div class="club-card creative">
+        <div class="club-type">Creative · Photography</div>
+        <h3>Drusya</h3>
+        <p>The digital camera and photography club. Learn composition, editing, event photography — and get to shoot all the major campus events!</p>
+      </div>
+      <div class="club-card sports">
+        <div class="club-type">Sports</div>
+        <h3>Avisrutha</h3>
+        <p>The sports club of Amrita Amaravati. Volleyball, basketball, badminton, cricket, and more. Inter-campus tournaments and intra-college competitions throughout the year.</p>
+      </div>
+      <div class="club-card tech" style="background:var(--red-light);border-color:rgba(192,57,43,0.2)">
+        <div class="club-type" style="color:var(--red)">Pro Tip</div>
+        <h3 style="color:var(--dark)">Why Join a Club?</h3>
+        <p style="color:var(--dark)">Clubs give you internship opportunities, leadership roles, and connections that classrooms don't. <strong>First-year recruitment drives happen in August–September</strong> — be ready.</p>
+      </div>
+    </div>
+
+    <div class="join-steps fade-up">
+      <h3>How to Join a Club</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Attend the Club Expo</h4><p>Held in the first 2–4 weeks of the semester. All clubs set up stalls — explore, talk to seniors, and shortlist 2–3 you like.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Fill the Interest Form</h4><p>Each club has a Google Form or sign-up sheet. Fill it immediately — slots fill fast, especially for popular clubs like Robotics and RELU.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Attend the Recruitment Drive</h4><p>Most technical clubs have a small task or interview. Don't stress — they care more about enthusiasm than skill at the fresher level.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Show Up Consistently</h4><p>Attendance at club meetings matters. Be regular in the first month and you'll naturally get more responsibilities and opportunities.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOSTEL & CAMPUS LIFE -->
+<section id="hostel">
+  <div class="section-inner">
+    <div class="section-label">Section 04</div>
+    <h2 class="section-title">Campus & <em>Hostel Life</em></h2>
+    <div class="hostel-grid">
+      <div>
+        <h3 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:20px">📅 A Typical Fresher's Day</h3>
+        <div class="routine-timeline fade-up">
+          <div class="timeline-item"><div class="time-label">6:00 AM</div><p>Wake up, freshen up. Mess opens early — breakfast is better when you're not rushing.</p></div>
+          <div class="timeline-item"><div class="time-label">8:00 AM</div><p>First class begins. Be there 5 minutes early — punctuality is noticed by professors.</p></div>
+          <div class="timeline-item"><div class="time-label">1:00 PM</div><p>Lunch break. Mess or canteen. Quick power nap if you can manage it.</p></div>
+          <div class="timeline-item"><div class="time-label">2:00 PM</div><p>Afternoon classes & lab sessions. Labs run till 5–6 PM on lab days.</p></div>
+          <div class="timeline-item"><div class="time-label">6:00 PM</div><p>Free time — sports at Avisrutha grounds, club meetings, or a walk around campus.</p></div>
+          <div class="timeline-item"><div class="time-label">7:30 PM</div><p>Dinner at the mess. Canteen open for snacks. Swiggy/Zomato delivers to hostel gates.</p></div>
+          <div class="timeline-item"><div class="time-label">9:00 PM</div><p>Study time. Labs open till 10:30 PM if you need resources. Hostel quiet hours after 11 PM.</p></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;margin-bottom:16px">🏠 Hostel Info</h3>
+        <p style="font-size:0.88rem;color:var(--gray);margin-bottom:16px">Hostel is <strong>mandatory for all freshers</strong>. Separate blocks for boys and girls with basic amenities. Rooms are shared (typically 3 per room). Wi-Fi is available campus-wide including hostels.</p>
+        <div class="facilities-list fade-up">
+          <div class="fac-item">Wi-Fi in rooms & campus</div>
+          <div class="fac-item">Separate boys & girls blocks</div>
+          <div class="fac-item">Central mess + canteen</div>
+          <div class="fac-item">Swiggy & Zomato delivery</div>
+          <div class="fac-item">Central library</div>
+          <div class="fac-item">Health centre / first aid</div>
+          <div class="fac-item">Sports grounds</div>
+          <div class="fac-item">Dhanlaxmi Bank + ATM</div>
+          <div class="fac-item">Laundry facility</div>
+          <div class="fac-item">General store / canteen</div>
+          <div class="fac-item">Smart classrooms</div>
+          <div class="fac-item">CISCO-powered labs</div>
+        </div>
+        <div style="margin-top:24px;padding:16px;background:var(--gold-light);border-radius:10px;border:1px solid rgba(212,172,13,0.25)">
+          <p style="font-size:0.85rem;color:var(--dark)">💡 <strong>Settling-in tip:</strong> Introduce yourself to your roommates on Day 1. Exchange numbers with your floor seniors — they'll help you with everything from finding the mess to cracking AUMS.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SURVIVAL KIT -->
+<section id="survival">
+  <div class="section-inner">
+    <div class="section-label" style="color:#E8A09A">Section 05</div>
+    <h2 class="section-title">The Fresher's <em>Survival Kit</em></h2>
+    <div class="dos-donts fade-up">
+      <div class="do-box">
+        <h3>✅ DO THIS</h3>
+        <ul class="dd-list">
+          <li>Register on AUMS on Day 1 and bookmark it</li>
+          <li>Attend the first week of every class — it sets attendance baseline</li>
+          <li>Make friends with seniors from your branch ASAP</li>
+          <li>Keep a physical notebook for important deadlines</li>
+          <li>Join at least one technical and one non-technical club</li>
+          <li>Save professor contact numbers (most share on first day)</li>
+          <li>Explore the campus fully in your first week</li>
+          <li>Submit assignments before the deadline, not on it</li>
+        </ul>
+      </div>
+      <div class="dont-box">
+        <h3>❌ AVOID THIS</h3>
+        <ul class="dd-list">
+          <li>Bunking classes in the first month — attendance deficit is hard to recover</li>
+          <li>Ignoring lab record submissions — they carry marks</li>
+          <li>Pulling all-nighters before every exam — it doesn't work long-term</li>
+          <li>Comparing yourself to others constantly — everyone has their own pace</li>
+          <li>Forgetting to eat regularly — affects focus and health</li>
+          <li>Keeping your phone on during lectures — professors do notice</li>
+          <li>Waiting till 10 PM to start assignments due at midnight</li>
+          <li>Not asking for help when you're lost — everyone is lost at first</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#fafaf8;margin-bottom:16px">🚨 Common Fresher Mistakes</h3>
+    <div class="mistakes-grid fade-up">
+      <div class="mistake-card"><h4>The Attendance Trap</h4><p>Thinking "75% is easy." Do the math — miss 2 days per week and you're already in danger zone by mid-semester.</p></div>
+      <div class="mistake-card"><h4>The Procrastination Loop</h4><p>Delaying assignments till the last hour. In Amrita, multiple deadlines often cluster together. Start early, always.</p></div>
+      <div class="mistake-card"><h4>The Isolation Phase</h4><p>Staying in the room because campus feels overwhelming. Push yourself to talk to people. It gets much easier after Week 2.</p></div>
+      <div class="mistake-card"><h4>The CGPA Shock</h4><p>First-semester marks are often a surprise. Don't panic — understand the marking scheme and adjust your strategy fast.</p></div>
+      <div class="mistake-card"><h4>Ignoring Labs</h4><p>Treating labs as unimportant. Lab exams are 20 marks. Record files, viva prep, and practical execution — all matter.</p></div>
+      <div class="mistake-card"><h4>No Senior Network</h4><p>Not befriending seniors. They have previous year question papers, insider tips, and can warn you about tough professors.</p></div>
+    </div>
+
+    <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#fafaf8;margin:32px 0 16px">⏰ Time Management Framework</h3>
+    <div class="time-grid fade-up">
+      <div class="time-block"><div class="time">MORNING BLOCK</div><p>Attend all classes. No skipping. This is non-negotiable in Semester 1.</p></div>
+      <div class="time-block"><div class="time">AFTERNOON BLOCK</div><p>Labs + any pending assignment work. Use library resources if needed.</p></div>
+      <div class="time-block"><div class="time">EVENING BLOCK</div><p>1 hour of club activity or sports. Physical activity keeps you sane.</p></div>
+      <div class="time-block"><div class="time">NIGHT BLOCK</div><p>2 hours of study/revision. Prepare for the next day, review today's notes.</p></div>
+    </div>
+
+    <div class="mis-section fade-up">
+      <h3>📝 Senior's MIS Exam Prep Plan (4-Week Strategy)</h3>
+      <div class="mis-plan">
+        <div class="mis-week">
+          <h4>Week 1 (4 Weeks Out)</h4>
+          <ul>
+            <li>Collect all lecture notes and slides</li>
+            <li>Identify weak topics per subject</li>
+            <li>Ask seniors for previous question papers</li>
+            <li>Make a subject-wise checklist</li>
+          </ul>
+        </div>
+        <div class="mis-week">
+          <h4>Week 2 (3 Weeks Out)</h4>
+          <ul>
+            <li>Complete all pending assignments</li>
+            <li>Start studying from the syllabus end</li>
+            <li>Make short notes / flashcards</li>
+            <li>Form study groups for tough subjects</li>
+          </ul>
+        </div>
+        <div class="mis-week">
+          <h4>Week 3 (2 Weeks Out)</h4>
+          <ul>
+            <li>Practice previous year questions</li>
+            <li>Focus on repeated topics from past papers</li>
+            <li>Lab records must be fully updated</li>
+            <li>Sleep 7 hrs minimum — don't skip</li>
+          </ul>
+        </div>
+        <div class="mis-week">
+          <h4>Week 4 (Exam Week)</h4>
+          <ul>
+            <li>Revise short notes only — no new topics</li>
+            <li>Eat properly and stay hydrated</li>
+            <li>Reach exam hall 10 mins early</li>
+            <li>Answer what you know first, then tackle hard ones</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS & RESOURCES -->
+<section id="tools">
+  <div class="section-inner">
+    <div class="section-label">Section 06</div>
+    <h2 class="section-title">Must-Have <em>Tools & Resources</em></h2>
+    <p style="margin-bottom:32px;color:var(--gray);max-width:600px">Every CSE fresher at Amrita Amaravati needs these in their arsenal from Day 1. Bookmark them now.</p>
+    <div class="tools-grid fade-up">
+      <div class="tool-card">
+        <div class="tool-icon">🎓</div>
+        <h3>AUMS Portal</h3>
+        <p>Your academic universe. Attendance, timetable, marks, assignments — all live here. Check it every single day.</p>
+        <a href="https://aums.amrita.edu" class="tool-link" target="_blank">aums.amrita.edu ↗</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">💻</div>
+        <h3>VS Code</h3>
+        <p>The industry-standard code editor. Install it before your first programming lab. Free and extremely powerful.</p>
+        <a href="https://code.visualstudio.com" class="tool-link" target="_blank">code.visualstudio.com ↗</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🐙</div>
+        <h3>GitHub</h3>
+        <p>Version control for all your code. Start using it from Semester 1 — recruiters will look at your profile from Year 2 onwards.</p>
+        <a href="https://github.com" class="tool-link" target="_blank">github.com ↗</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">📺</div>
+        <h3>NPTEL / Swayam</h3>
+        <p>Free online courses from IIT professors. Certificates count for extra credits. Essential for supplementing your core curriculum.</p>
+        <a href="https://swayam.gov.in" class="tool-link" target="_blank">swayam.gov.in ↗</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🧠</div>
+        <h3>GeeksforGeeks</h3>
+        <p>Best resource for DSA, competitive programming, and CS fundamentals. Start with data structures in Semester 2.</p>
+        <a href="https://geeksforgeeks.org" class="tool-link" target="_blank">geeksforgeeks.org ↗</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🏆</div>
+        <h3>LeetCode</h3>
+        <p>Start solving easy problems from Semester 2. Placement season begins in 3rd year — the habit needs to start now.</p>
+        <a href="https://leetcode.com" class="tool-link" target="_blank">leetcode.com ↗</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">📖</div>
+        <h3>Notion</h3>
+        <p>Best tool for organising notes, deadlines, and study schedules. Way better than random WhatsApp messages to yourself.</p>
+        <a href="https://notion.so" class="tool-link" target="_blank">notion.so ↗</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🤖</div>
+        <h3>Claude / ChatGPT</h3>
+        <p>AI assistants for understanding tough concepts, debugging code, and brainstorming project ideas. Use them smartly — learn, don't just copy.</p>
+        <a href="https://claude.ai" class="tool-link" target="_blank">claude.ai ↗</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🎯</div>
+        <h3>Coursera / Udemy</h3>
+        <p>Paid but affordable skill-building courses. Google, IBM, and Meta certifications here carry real weight on your resume.</p>
+        <a href="https://coursera.org" class="tool-link" target="_blank">coursera.org ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CGPA CALCULATOR & ATTENDANCE TRACKER -->
+<section id="cgpa-calc">
+  <div class="section-inner">
+    <div class="section-label">Section 06.5</div>
+    <h2 class="section-title">CGPA <em>Calculator</em> & Attendance Check</h2>
+
+    <div class="calc-wrap fade-up">
+      <h3>🎓 Interactive CGPA Calculator</h3>
+      <table class="subjects-table" id="subjectTable">
+        <thead>
+          <tr>
+            <th>Subject Name</th>
+            <th>Credits</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody id="subjectRows">
+          <tr>
+            <td><input type="text" placeholder="e.g. Engineering Maths"/></td>
+            <td><input type="number" min="1" max="5" value="4" style="width:70px"/></td>
+            <td><select><option value="10">O (10)</option><option value="9">A+ (9)</option><option value="8" selected>A (8)</option><option value="7">B+ (7)</option><option value="6">B (6)</option><option value="5">C (5)</option><option value="0">F (0)</option></select></td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="e.g. Programming in C"/></td>
+            <td><input type="number" min="1" max="5" value="4" style="width:70px"/></td>
+            <td><select><option value="10">O (10)</option><option value="9">A+ (9)</option><option value="8" selected>A (8)</option><option value="7">B+ (7)</option><option value="6">B (6)</option><option value="5">C (5)</option><option value="0">F (0)</option></select></td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="e.g. Physics"/></td>
+            <td><input type="number" min="1" max="5" value="3" style="width:70px"/></td>
+            <td><select><option value="10">O (10)</option><option value="9">A+ (9)</option><option value="8">A (8)</option><option value="7" selected>B+ (7)</option><option value="6">B (6)</option><option value="5">C (5)</option><option value="0">F (0)</option></select></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="calc-actions">
+        <button class="btn-add-row" onclick="addSubjectRow()">+ Add Subject</button>
+        <button class="btn-calc" onclick="calcCGPA()">Calculate CGPA →</button>
+      </div>
+      <div class="cgpa-result" id="cgpaResult">
+        <div class="cgpa-result-num" id="cgpaNum">—</div>
+        <div class="cgpa-result-label">Calculated CGPA (Semester GPA)</div>
+        <div class="cgpa-verdict" id="cgpaVerdict"></div>
+      </div>
+    </div>
+
+    <div class="attend-wrap fade-up">
+      <h3>📋 Attendance Danger Calculator</h3>
+      <div class="attend-inputs">
+        <div class="attend-field">
+          <label>Total Classes Held</label>
+          <input type="number" id="totalClasses" placeholder="e.g. 60" min="1"/>
+        </div>
+        <div class="attend-field">
+          <label>Classes Attended</label>
+          <input type="number" id="attendedClasses" placeholder="e.g. 45" min="0"/>
+        </div>
+        <div class="attend-field">
+          <label>Remaining Classes</label>
+          <input type="number" id="remainingClasses" placeholder="e.g. 20" min="0"/>
+        </div>
+        <button class="btn-calc" onclick="calcAttendance()" style="height:42px;margin-bottom:0">Check →</button>
+      </div>
+      <div class="attend-result" id="attendResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-label">Section 07</div>
+    <h2 class="section-title">Fresher <em>FAQs</em></h2>
+    <p style="margin-bottom:32px;color:var(--gray);max-width:600px">The most common questions every Amrita Amaravati fresher Googles at 2 AM — answered.</p>
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)"><span>What is AUMS and when should I register?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>AUMS (Amrita University Management System) is your one-stop academic portal for attendance, timetable, marks, assignments, and fee payments. Register on Day 1 using the credentials given during admission. Bookmark <strong>aums.amrita.edu</strong> and check it every single day — seriously.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)"><span>What happens if my attendance drops below 75%?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>You'll be <strong>detained from appearing for that subject's end-semester exam</strong>. This is non-negotiable. If you're between 65–74%, you may petition the faculty with valid medical certificates — but don't count on it. Prevention is everything. Track it weekly on AUMS.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)"><span>Is hostel mandatory for freshers?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>Yes. First-year students are required to stay in the hostel. This is standard for most batches. Day-scholar options are usually considered from second year onward (subject to policy — check with your admission coordinator). Hostel life is actually a great way to build your network fast.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)"><span>How does the CGPA / grading system work?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>Amrita uses a 10-point grading scale: O=10, A+=9, A=8, B+=7, B=6, C=5. Your CGPA is calculated as the weighted average of grade points × credit hours for each subject. Aim for 8+ to keep options open for research positions and competitive internships.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)"><span>Can I use my phone in class or during labs?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>Phones must be on silent and kept away during lectures and labs — this is the general rule across faculties. Laptops are allowed in class for note-taking (keep it on airplane mode if you're not using it for class material). Getting caught on your phone during class is a quick way to get noticed for the wrong reasons.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)"><span>What's the MIS exam and how should I prepare?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>MIS (Mid Internal Semester) exams happen twice a semester and account for 30 marks each. They typically cover the topics taught in the preceding weeks. Start preparing 3–4 weeks before using previous question papers (ask seniors), short notes, and study groups. Do not wait until the week before.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)"><span>When should I join clubs — Day 1 or later?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>The <strong>Club Expo happens in the first 2–4 weeks</strong> of the semester. This is your window. Most clubs recruit freshers only once a year, in August–September. Don't miss it thinking "I'll join next semester" — you won't get the same onboarding experience. Show up, talk to seniors, and apply to 2–3 clubs.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)"><span>Is food at the mess and canteen decent?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>The mess serves three meals a day and is generally decent (your opinion will vary — most freshers take a month to adjust). The canteen is the popular alternative especially for evening snacks and late nights. Swiggy and Zomato also deliver to the hostel gates, so you won't go hungry.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS MAP -->
+<section id="campusmap">
+  <div class="section-inner">
+    <div class="section-label">Section 08</div>
+    <h2 class="section-title">Campus <em>Map Guide</em></h2>
+    <p style="color:var(--gray);max-width:620px;margin-bottom:8px">The Amrita Amaravati campus is 400+ acres — getting lost is a rite of passage. Here are the key spots every fresher needs to know.</p>
+    <div class="map-grid fade-up">
+      <div class="map-spot">
+        <div class="map-spot-icon">🏛️</div>
+        <h4>Main Academic Block</h4>
+        <p>Theory classrooms, faculty offices, admin block. Most of your Week 1 orientation happens here.</p>
+      </div>
+      <div class="map-spot">
+        <div class="map-spot-icon">💻</div>
+        <h4>Computer Labs (CISCO)</h4>
+        <p>High-end CISCO-powered labs, open 7 AM – 10:30 PM. Bring your student ID for after-hours access.</p>
+      </div>
+      <div class="map-spot">
+        <div class="map-spot-icon">📚</div>
+        <h4>Central Library</h4>
+        <p>Multi-floor library with digital resources, reference books, and silent study spaces. Great for exam season.</p>
+      </div>
+      <div class="map-spot">
+        <div class="map-spot-icon">🍽️</div>
+        <h4>Central Mess & Canteen</h4>
+        <p>Main mess for hostel students. Separate canteen for snacks and à la carte. Canteen is open late.</p>
+      </div>
+      <div class="map-spot">
+        <div class="map-spot-icon">🏃</div>
+        <h4>Avisrutha Sports Grounds</h4>
+        <p>Cricket, volleyball, basketball, badminton courts. Managed by the sports club. Open evenings and weekends.</p>
+      </div>
+      <div class="map-spot">
+        <div class="map-spot-icon">🏥</div>
+        <h4>Health Centre</h4>
+        <p>Campus medical facility for first aid and routine check-ups. Know where this is from Day 1 — emergency visits happen.</p>
+      </div>
+      <div class="map-spot">
+        <div class="map-spot-icon">🏦</div>
+        <h4>Dhanlaxmi Bank + ATM</h4>
+        <p>On-campus banking and ATM. Essential for managing your monthly budget without leaving campus.</p>
+      </div>
+      <div class="map-spot">
+        <div class="map-spot-icon">🏠</div>
+        <h4>Hostel Blocks</h4>
+        <p>Separate boys and girls blocks, Wi-Fi throughout. Your home for the next year — explore it in Week 1.</p>
+      </div>
+      <div class="map-spot">
+        <div class="map-spot-icon">🛒</div>
+        <h4>General Store</h4>
+        <p>Basic necessities, stationery, toiletries, and snacks. Locate this on Day 1 — you'll be back daily.</p>
+      </div>
+    </div>
+    <div class="map-callout">
+      💡 <strong>Pro tip:</strong> Walk the entire campus in your first week. Find the quickest route from your hostel block to your lecture hall and the lab. Knowing these shortcuts saves 10 minutes every morning — and those minutes matter when class starts at 8 AM.
+    </div>
+  </div>
+</section>
+
+<!-- DAY 1 CHECKLIST -->
+<section id="checklist-section">
+  <div class="section-inner">
+    <div class="section-label" style="color:#E8A09A">Section 09</div>
+    <h2 class="section-title">Day 1 <em>Survival Checklist</em></h2>
+    <p style="color:rgba(250,250,248,0.6);max-width:580px;margin-bottom:8px">Everything you should do, carry, and set up on your very first day at Amrita Amaravati.</p>
+    <div class="checklist-download-wrap fade-up">
+      <div class="checklist-cols">
+        <div>
+          <div class="checklist-col"><h4>📋 Things To Do</h4>
+            <div class="cl-item">Register on AUMS immediately with your admission credentials</div>
+            <div class="cl-item">Attend the orientation session fully — take notes</div>
+            <div class="cl-item">Save your roll number and section details</div>
+            <div class="cl-item">Exchange numbers with your roommates</div>
+            <div class="cl-item">Find a senior from your branch and introduce yourself</div>
+            <div class="cl-item">Locate the mess, canteen, health centre, and ATM</div>
+            <div class="cl-item">Download the AUMS mobile app if available</div>
+            <div class="cl-item">Set up your college email ID</div>
+            <div class="cl-item">Bookmark the official Amrita website and AUMS</div>
+            <div class="cl-item">Note your faculty advisor's contact number</div>
+          </div>
+        </div>
+        <div>
+          <div class="checklist-col"><h4>🎒 Things To Carry</h4>
+            <div class="cl-item">Admission letter + original mark sheets</div>
+            <div class="cl-item">Passport-size photos (carry at least 10)</div>
+            <div class="cl-item">Laptop + charger (mandatory for CSE students)</div>
+            <div class="cl-item">Notebook and pens (digital-first but labs still need paper)</div>
+            <div class="cl-item">Student ID card (collect from admin block)</div>
+            <div class="cl-item">Bank account details (for fee payment setup)</div>
+            <div class="cl-item">Basic toiletries and medicines (pharmacy is off-campus)</div>
+            <div class="cl-item">Power bank — campus is large, outlets aren't always nearby</div>
+            <div class="cl-item">Water bottle — stay hydrated especially in Amaravati heat</div>
+            <div class="cl-item">A physical diary / planner for deadlines</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-download" onclick="downloadChecklist()">⬇ Download as PDF Checklist</button>
+    </div>
+  </div>
+</section>
+<section id="reviews">
+  <div class="section-inner">
+    <div class="section-label">From Your Seniors</div>
+    <h2 class="section-title">What <em>Students Say</em></h2>
+    <div class="reviews-grid fade-up">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I wish someone had told me about AUMS in Week 1 instead of Week 4. Also — join RELU if you're CSE-AI. The projects we built in first year itself were insane. Don't wait."</p>
+        <div class="review-author">
+          <div class="review-avatar">RK</div>
+          <div><div class="review-name">Rithvik K.</div><div class="review-batch">B.Tech CSE-AI · Batch of 2024</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The mess food is decent. The canteen is a lifesaver at 10 PM. But the best part about Amrita Amaravati? Your seniors here actually want to help you. Don't be shy — ask."</p>
+        <div class="review-author">
+          <div class="review-avatar">PD</div>
+          <div><div class="review-name">Priya D.</div><div class="review-batch">B.Tech AI & DS · Batch of 2025</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"Chakravyuha changed my college life. I went from a student who only attended class to someone who managed events, led teams, and built a network. Join a club in Semester 1 — no excuses."</p>
+        <div class="review-author">
+          <div class="review-avatar">AS</div>
+          <div><div class="review-name">Aarav S.</div><div class="review-batch">B.Tech CSE · Batch of 2024</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"My first MIS exam was a disaster because I started 3 days before. Second MIS I started 3 weeks before and scored way better. The 4-week prep strategy is real — stick to it."</p>
+        <div class="review-author">
+          <div class="review-avatar">NK</div>
+          <div><div class="review-name">Neha K.</div><div class="review-batch">B.Tech CCE · Batch of 2025</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Drusya gave me a camera and a purpose. I covered every campus event in first year and built a portfolio that helped me get a photography internship. Campus life here is what you make of it."</p>
+        <div class="review-author">
+          <div class="review-avatar">SM</div>
+          <div><div class="review-name">Siddharth M.</div><div class="review-batch">B.Tech CSE · Batch of 2024</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"The 400-acre campus is gorgeous and the Wi-Fi is decent. Hostel rooms with 3 people is cosy — make friends with your roommates early. They'll be the ones feeding you during exam season."</p>
+        <div class="review-author">
+          <div class="review-avatar">BT</div>
+          <div><div class="review-name">Burri D.</div><div class="review-batch">B.Tech AI & DS · Batch of 2026</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Use the CGPA calculator before every semester ends — not after results come out. Knowing where you stand helps you decide which assignments to push hard on. Strategic studying is real."</p>
+        <div class="review-author">
+          <div class="review-avatar">VR</div>
+          <div><div class="review-name">Varsha R.</div><div class="review-batch">B.Tech CSE-AI · Batch of 2025</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The campus is beautiful but HUGE. I spent my first three days getting lost. Walk the full campus in Week 1 before classes get hectic. The library at night during exam season is a different level of focus."</p>
+        <div class="review-author">
+          <div class="review-avatar">KP</div>
+          <div><div class="review-name">Kiran P.</div><div class="review-batch">B.Tech CCE · Batch of 2025</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"Nobody told me about the attendance tracking app on AUMS until Week 6. Set it up in Week 1. I had to scramble to recover in one subject because I didn't realise how fast attendance slips when you miss even 2–3 days."</p>
+        <div class="review-author">
+          <div class="review-avatar">MP</div>
+          <div><div class="review-name">Meghna P.</div><div class="review-batch">B.Tech AI & DS · Batch of 2026</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Don't wait to feel 'ready' for clubs. I joined RELU with zero ML knowledge and learned everything there. The seniors are patient and the projects in the first semester itself were better than anything we did in class."</p>
+        <div class="review-author">
+          <div class="review-avatar">AT</div>
+          <div><div class="review-name">Arjun T.</div><div class="review-batch">B.Tech CSE-AI · Batch of 2024</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The Day 1 checklist format is something I wish existed when I joined. I spent the first week in a panic because I didn't know what to collect first. Sort your documents, talk to seniors, and register AUMS — in that order."</p>
+        <div class="review-author">
+          <div class="review-avatar">DS</div>
+          <div><div class="review-name">Divya S.</div><div class="review-batch">B.Tech CSE · Batch of 2025</div></div>
+        </div>
+      </div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">🧭 Campus<span>Compass</span></div>
+    <div class="footer-text">Made with ❤️ for the incoming batch of 2026 · Amrita Vishwa Vidyapeetham, Amaravati</div>
+    <div class="footer-links">
+      <a href="https://www.amrita.edu/campus/amaravati/" target="_blank">Official Website</a>
+      <a href="https://aums.amrita.edu" target="_blank">AUMS Portal</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#home" class="back-top" id="backTop">↑</a>
+
+<script>
+// Mobile menu
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Back to top
+window.addEventListener('scroll',()=>{
+  document.getElementById('backTop').classList.toggle('show',window.scrollY>400);
+  document.getElementById('mobileMenu').classList.remove('open');
+  // Scroll progress bar
+  const scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+  const scrollHeight=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  const pct=scrollHeight>0?(scrollTop/scrollHeight*100).toFixed(1):0;
+  document.getElementById('scroll-progress').style.width=pct+'%';
+});
+
+// Fade in on scroll
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// Animate bar fills
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.bar-fill').forEach(b=>{b.style.width=b.style.width});
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.exam-box').forEach(el=>barObs.observe(el));
+
+// Animated counters
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      const target=parseInt(el.dataset.target);
+      const val=el.querySelector('.count-val');
+      if(!val||el.dataset.done)return;
+      el.dataset.done='1';
+      let start=0;const dur=1400;const step=16;
+      const inc=target/(dur/step);
+      const timer=setInterval(()=>{
+        start=Math.min(start+inc,target);
+        val.textContent=Math.floor(start);
+        if(start>=target)clearInterval(timer);
+      },step);
+      counterObs.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('[data-target]').forEach(el=>counterObs.observe(el));
+
+// FAQ accordion
+function toggleFAQ(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+// CGPA Calculator
+function addSubjectRow(){
+  const tbody=document.getElementById('subjectRows');
+  const row=document.createElement('tr');
+  row.innerHTML=`<td><input type="text" placeholder="Subject name"/></td><td><input type="number" min="1" max="5" value="3" style="width:70px"/></td><td><select><option value="10">O (10)</option><option value="9">A+ (9)</option><option value="8" selected>A (8)</option><option value="7">B+ (7)</option><option value="6">B (6)</option><option value="5">C (5)</option><option value="0">F (0)</option></select></td>`;
+  tbody.appendChild(row);
+}
+function calcCGPA(){
+  const rows=document.querySelectorAll('#subjectRows tr');
+  let totalPoints=0,totalCredits=0;
+  rows.forEach(r=>{
+    const credits=parseFloat(r.querySelector('td:nth-child(2) input').value)||0;
+    const grade=parseFloat(r.querySelector('select').value)||0;
+    totalPoints+=credits*grade;totalCredits+=credits;
+  });
+  if(totalCredits===0)return;
+  const cgpa=(totalPoints/totalCredits).toFixed(2);
+  document.getElementById('cgpaNum').textContent=cgpa;
+  let verdict='';
+  if(cgpa>=9)verdict='🏆 Outstanding! You are in the top tier. Keep this up!';
+  else if(cgpa>=8)verdict='✅ Great performance! Competitive for most opportunities.';
+  else if(cgpa>=7)verdict='👍 Good. A small push can get you to the 8+ bracket.';
+  else if(cgpa>=6)verdict='⚠️ Decent but needs improvement. Identify weak subjects now.';
+  else verdict='🚨 Below 6. Talk to your faculty advisor immediately. Recovery is possible!';
+  document.getElementById('cgpaVerdict').textContent=verdict;
+  const res=document.getElementById('cgpaResult');
+  res.classList.add('show');
+}
+
+// Attendance calculator
+function calcAttendance(){
+  const total=parseInt(document.getElementById('totalClasses').value)||0;
+  const attended=parseInt(document.getElementById('attendedClasses').value)||0;
+  const remaining=parseInt(document.getElementById('remainingClasses').value)||0;
+  if(total<=0||attended<0)return;
+  const currentPct=Math.round(attended/total*100);
+  const res=document.getElementById('attendResult');
+  res.className='attend-result show';
+
+  if(total+remaining===0){res.innerHTML='<strong>Please enter valid numbers.</strong>';return;}
+
+  const needed=Math.ceil(0.75*(total+remaining));
+  const canSkip=attended+remaining-needed;
+  const finalIfAttendAll=Math.round((attended+remaining)/(total+remaining)*100);
+
+  let html='';
+  if(currentPct>=75){
+    const canMiss=Math.floor((attended-0.75*total)/(0.75-1));
+    const safeMiss=Math.max(0,Math.floor((attended-0.75*(total+remaining))/(-0.75+1)*-1));
+    const actualSafe=Math.max(0,attended+remaining-needed);
+    res.classList.remove('attend-danger','attend-critical');res.classList.add('attend-safe');
+    html=`<strong>✅ Current: ${currentPct}% — You're safe!</strong><br>You can skip up to <strong>${actualSafe} more class${actualSafe===1?'':'es'}</strong> and still stay above 75%.<br><small>If you attend all remaining: ${finalIfAttendAll}%</small>`;
+  } else {
+    const mustAttend=needed-attended;
+    res.classList.remove('attend-safe');
+    if(mustAttend>remaining){
+      res.classList.add('attend-critical');
+      html=`<strong>🚨 Danger: ${currentPct}% — DETAINED RISK!</strong><br>You need ${mustAttend} more classes but only ${remaining} remain. Even attending everything won't save you. Visit your faculty advisor NOW.`;
+    } else {
+      res.classList.add('attend-danger');
+      html=`<strong>⚠️ Warning: ${currentPct}% — Below 75%</strong><br>Attend the next <strong>${mustAttend} consecutive classes</strong> without missing any to recover.<br><small>If you attend all remaining: ${finalIfAttendAll}%</small>`;
+    }
+  }
+  res.innerHTML=html;
+}
+
+// Checklist download
+function downloadChecklist(){
+  const content=`CAMPUS COMPASS — DAY 1 CHECKLIST
+Amrita Vishwa Vidyapeetham, Amaravati · Batch 2026
+================================================
+
+THINGS TO DO ON DAY 1:
+[ ] Register on AUMS immediately with your admission credentials
+[ ] Attend the orientation session fully — take notes
+[ ] Save your roll number and section details
+[ ] Exchange numbers with your roommates
+[ ] Find a senior from your branch and introduce yourself
+[ ] Locate the mess, canteen, health centre, and ATM
+[ ] Download the AUMS mobile app if available
+[ ] Set up your college email ID
+[ ] Bookmark: aums.amrita.edu and amrita.edu/campus/amaravati
+[ ] Note your faculty advisor's contact number
+
+THINGS TO CARRY:
+[ ] Admission letter + original mark sheets
+[ ] Passport-size photos (carry at least 10)
+[ ] Laptop + charger (mandatory for CSE students)
+[ ] Notebook and pens
+[ ] Student ID card (collect from admin block)
+[ ] Bank account details (for fee payment setup)
+[ ] Basic toiletries and medicines
+[ ] Power bank
+[ ] Water bottle
+[ ] Physical diary / planner for deadlines
+
+KEY LINKS:
+- AUMS Portal: https://aums.amrita.edu
+- Official Site: https://www.amrita.edu/campus/amaravati/
+- Campus Compass Guide: Save this page!
+
+Good luck, fresher. You've got this. 🧭`;
+  const blob=new Blob([content],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Campus-Compass-Day1-Checklist.txt';
+  a.click();
+}
+</script>
+</body>
+</html>
